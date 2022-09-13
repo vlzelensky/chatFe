@@ -1,7 +1,15 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'Router';
+
+import 'antd/dist/antd.css';
 
 const App = () => {
-  return <div></div>;
+  return (
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
+  );
 };
 
 export default App;
