@@ -1,12 +1,26 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { SignIn, SignUp } from 'pages';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { user } from 'store';
+import { protectedRoutes, openRoutes } from './routes';
+import { observer } from 'mobx-react-lite';
 
-export const Router = () => {
+export const Router = observer(() => {
   return (
     <Routes>
-      <Route path='/signin' element={<SignIn />} />
-      <Route path='/signup' element={<SignUp />} />
+      {openRoutes.map(({ path, Element }) => (
+        <Route
+          key={path}
+          path={path}
+          element={user.isAuth ? <Navigate to='/' /> : <Element />}
+        />
+      ))}
+      {protectedRoutes.map(({ path, Element }) => (
+        <Route
+          key={path}
+          path={path}
+          element={user.isAuth ? <Element /> : <Navigate to='/signin' />}
+        />
+      ))}
     </Routes>
   );
-};
+});

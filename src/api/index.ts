@@ -26,3 +26,12 @@ export const logIn = (userData: { email: string; password: string }) => {
     console.error(e);
   }
 };
+
+export const getUser = (token: string) => {
+  return api()
+    .get<LoginResponse>('user/me', { headers: { Authorization: token } })
+    .then((res) => res.data)
+    .catch((e) => {
+      console.warn(e);
+    });
+};
