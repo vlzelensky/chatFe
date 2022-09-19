@@ -10,7 +10,7 @@ export interface RegisterUserDataI {
   name: string;
   userName: string;
   password: string;
-  repeatPassword: string;
+  repeatPassword?: string;
   birthDate: string;
   email: string;
 }
