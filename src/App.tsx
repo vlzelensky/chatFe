@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, useNavigate } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Router } from 'Router';
 import { user } from 'store';
 

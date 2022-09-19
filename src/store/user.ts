@@ -6,6 +6,7 @@ class User {
   constructor() {
     makeAutoObservable(this);
   }
+
   isAuth: boolean = false;
   email: string | null = null;
   name: string | null = null;
@@ -13,15 +14,20 @@ class User {
   birthDate: string | null = null;
 
   async signIn(userData: { password: string; email: string }) {
-    const data = await logIn(userData);
-    this.isAuth = true;
-    this.email = data!.email;
-    this.name = data!.name;
-    this.userName = data!.userName;
-    this.birthDate = data!.birthDate;
-    localStorage.setItem('token', data!.token);
-    initApi(data!.token);
+    try {
+      const data = await logIn(userData);
+      this.isAuth = true;
+      this.email = data!.email;
+      this.name = data!.name;
+      this.userName = data!.userName;
+      this.birthDate = data!.birthDate;
+      localStorage.setItem('token', data!.token);
+      initApi(data!.token);
+    } catch {
+      return 'Неправильный логин или пароль';
+    }
   }
+
   async getUser() {
     const token = localStorage.getItem('token');
     if (token) {

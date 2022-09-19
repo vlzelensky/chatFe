@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Main, SignUp, SignIn } from 'pages';
 
 export const protectedRoutes = [

@@ -5,3 +5,14 @@ export interface LoginResponse {
   userName: string;
   birthDate: string;
 }
+
+export interface RegisterUserDataI {
+  name: string;
+  userName: string;
+  password: string;
+  repeatPassword: string;
+  birthDate: string;
+  email: string;
+}
+
+export type LoginUserDataI = Pick<RegisterUserDataI, 'email' | 'password'>;

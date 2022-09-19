@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Form as AntdForm, Input, Button, DatePicker, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import { registerUser } from 'api';
+import { logIn, registerUser } from 'api';
 import { user } from 'store/user';
 import { FormProps } from './types';
 import { validatePassword, validateRepeatPassword, validateUserName } from './validators';
@@ -22,17 +22,24 @@ export const Form: FC<FormProps> = ({ title, mode }) => {
     email: string;
   }) => {
     if (isSignUp) {
-      const isError = await registerUser(values);
-      if (isError) {
-        message.error('Пользователь с таким e-mail уже существует');
+      const errorMessage = await registerUser(values);
+      if (errorMessage && typeof errorMessage === 'string') {
+        message.error(errorMessage);
         return;
       }
       message.success('Вы успешно зарегистрированы');
       setTimeout(() => navigate('/signin'), 1500);
       return;
     }
-    await user.signIn({ email: values.email, password: values.password });
-    navigate('/');
+    const errorMessage = await user.signIn({
+      email: values.email,
+      password: values.password,
+    });
+    if (!errorMessage) {
+      navigate('/');
+      return;
+    }
+    message.error(errorMessage);
   };
 
   return (
@@ -61,7 +68,12 @@ export const Form: FC<FormProps> = ({ title, mode }) => {
             </AntdForm.Item>
             <AntdForm.Item
               name='birthDate'
-              rules={[{ required: true, message: 'Пожалуйста укажите дату рождения' }]}
+              rules={[
+                {
+                  required: true,
+                  message: 'Пожалуйста укажите дату рождения',
+                },
+              ]}
             >
               <DatePicker className='datepicker' />
             </AntdForm.Item>
@@ -95,7 +107,10 @@ export const Form: FC<FormProps> = ({ title, mode }) => {
             name='repeatPassword'
             rules={[
               validateRepeatPassword,
-              { required: true, message: 'Пожалуйста повторите пароль' },
+              {
+                required: true,
+                message: 'Пожалуйста повторите пароль',
+              },
             ]}
           >
             <Input.Password placeholder='Повторите пароль' />
