@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'Router';
+import { user } from 'store';
+
+import 'antd/dist/antd.css';
 
 const App = () => {
-  return <div></div>;
+  useEffect(() => {
+    user.getUser();
+  }, []);
+
+  return (
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
+  );
 };
 
 export default App;
