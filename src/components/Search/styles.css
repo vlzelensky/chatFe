@@ -1,0 +1,16 @@
+.search-wrapper {
+  display: flex;
+  min-width: 400px;
+  align-items: center;
+  gap: 10px;
+}
+
+.header_button {
+  margin-left: 10px;
+}
+
+.search {
+  width: 300px;
+}
+
+
