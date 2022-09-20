@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { logIn, getUser, findUser } from 'api';
+import { logIn, getUser } from 'api';
 import { initApi } from 'config/axios';
 import { LoginResponse } from 'api/types';
 
@@ -55,12 +55,6 @@ class User {
         this.logout();
       }
     }
-  }
-
-  async searchUser(value: string, userId: string) {
-    try {
-      const res = await findUser(value, userId);
-    } catch (e) {}
   }
 }
 

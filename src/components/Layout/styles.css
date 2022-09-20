@@ -22,10 +22,6 @@
   object-fit: cover;
 }
 
-.avatar {
-  cursor: pointer;
-}
-
 .avatar-wrapper {
   height: 50px;
   display: flex;
