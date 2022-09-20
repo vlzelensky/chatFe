@@ -18,3 +18,12 @@ export const getUser = (token: string) => {
     .get<LoginResponse>('user/me', { headers: { Authorization: token } })
     .then((res) => res.data);
 };
+
+export const findUser = (value: string, userId: string) => {
+  return api().get('user/', {
+    params: {
+      searchUser: value,
+      userId,
+    },
+  });
+};

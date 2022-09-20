@@ -1,8 +1,9 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 import { user } from 'store';
 import { protectedRoutes, openRoutes } from './routes';
-import { observer } from 'mobx-react-lite';
+import { Layout } from 'components';
 
 export const Router = observer(() => {
   return (
@@ -18,7 +19,15 @@ export const Router = observer(() => {
         <Route
           key={path}
           path={path}
-          element={user.isAuth ? <Element /> : <Navigate to='/signin' />}
+          element={
+            user.isAuth ? (
+              <Layout>
+                <Element />
+              </Layout>
+            ) : (
+              <Navigate to='/signin' />
+            )
+          }
         />
       ))}
     </Routes>

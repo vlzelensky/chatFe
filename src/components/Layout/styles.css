@@ -1,0 +1,49 @@
+.layout {
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-name {
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.header-button {
+  margin-left: 10px;
+}
+
+.logo {
+  height: 30px;
+  object-fit: cover;
+}
+
+.avatar {
+  cursor: pointer;
+}
+
+.avatar-wrapper {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sider-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 10px;
+}
+
+.with-margin {
+  margin-right: 10px;
+}
+
+.conversations-wrapper {
+  flex: 1
+}
