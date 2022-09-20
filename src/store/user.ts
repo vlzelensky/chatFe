@@ -56,12 +56,6 @@ class User {
       }
     }
   }
-
-  async searchUser(value: string, userId: string) {
-    try {
-      const res = await findUser(value, userId);
-    } catch (e) {}
-  }
 }
 
 export const user = new User();

@@ -15,6 +15,8 @@ export const Search: FC = () => {
   const debouncedSearch = useDebounce(inputValue, 1000);
   const navigate = useNavigate();
 
+  const { id } = user;
+
   const openConversation = (value: string) => {
     const user = users?.find((el) => el.userName === value);
     navigate(`/conversation/${user?.id}`);
@@ -23,7 +25,7 @@ export const Search: FC = () => {
   useEffect(() => {
     if (debouncedSearch && inputValue.length > 2) {
       setIsLoading(true);
-      findUser(inputValue, user.id!).then((res) => {
+      findUser(inputValue, id!).then((res) => {
         setIsLoading(false);
         setUsers(res.data.users);
       });
