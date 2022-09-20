@@ -4,13 +4,14 @@ import { AutoComplete, Spin } from 'antd';
 import { useDebounce } from 'hooks';
 import { findUser } from 'api';
 import { user } from 'store';
+import { SearchedUserI } from './types';
 
 import './styles.css';
 
 export const Search: FC = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [users, setUsers] = useState<null | { id: string; userName: string }[]>(null);
+  const [users, setUsers] = useState<null | SearchedUserI[]>(null);
   const debouncedSearch = useDebounce(inputValue, 1000);
   const navigate = useNavigate();
 
