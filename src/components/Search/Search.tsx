@@ -35,6 +35,12 @@ export const Search: FC = () => {
     }
   }, [debouncedSearch]);
 
+  useEffect(() => {
+    if (inputValue.length < 3 && users) {
+      setUsers(null);
+    }
+  }, [inputValue]);
+
   return (
     <div className='search-wrapper'>
       <AutoComplete

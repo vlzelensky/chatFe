@@ -27,12 +27,3 @@ export const findUser = (value: string, userId: string) => {
     },
   });
 };
-
-export const findUser = (value: string, userId: string) => {
-  return api().get('user/', {
-    params: {
-      searchUser: value,
-      userId,
-    },
-  });
-};

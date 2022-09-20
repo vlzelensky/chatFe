@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { user } from 'store';
 import { LayoutProps } from './types';
 import logo from 'public/images/logo.png';
+import { Search } from 'components/Search';
 
 import './styles.css';
 
@@ -25,6 +26,7 @@ export const Layout: FC<LayoutProps> = observer(({ children }) => {
     <AntdLayout className='layout'>
       <Header className='header'>
         <img className='logo' src={logo} alt='logo' />
+        <Search />
         <div>
           <span className='user-name' onClick={() => navigate('/profile')}>
             {user.userName}
