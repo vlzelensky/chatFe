@@ -38,9 +38,12 @@ export const Search: FC = () => {
     <div className='search-wrapper'>
       <AutoComplete
         className='search'
-        options={users?.map((user) => ({ value: user.userName, ...user }))}
+        options={users?.map((user: { id: string; userName: string }) => ({
+          value: user.userName,
+          ...user,
+        }))}
         value={inputValue}
-        onChange={(value) => setInputValue(value)}
+        onChange={(value: string) => setInputValue(value)}
         onSelect={(value: string) => openConversation(value)}
       />
       <Spin spinning={isLoading} />

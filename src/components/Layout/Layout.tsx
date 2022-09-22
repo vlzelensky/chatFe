@@ -14,7 +14,7 @@ export const Layout: FC<LayoutProps> = observer(({ children }) => {
   const [collapsed, setCollapsed] = useState<boolean>(true);
   const navigate = useNavigate();
 
-  const { name } = user;
+  const { name, userName, avatar } = user;
 
   const avatarText = name
     ?.split(' ')
@@ -27,7 +27,7 @@ export const Layout: FC<LayoutProps> = observer(({ children }) => {
         <img className='logo' src={logo} alt='logo' />
         <div>
           <span className='user-name' onClick={() => navigate('/profile')}>
-            {user.userName}
+            {name}
           </span>
           <Button className='header-button' onClick={() => user.logout()}>
             Выйти
@@ -46,16 +46,14 @@ export const Layout: FC<LayoutProps> = observer(({ children }) => {
               {!collapsed && [].map(({ id, userName }) => <div key={id}>{userName}</div>)}
             </div>
             <div className='avatar-wrapper'>
-              {!collapsed && (
-                <span className='user-name with-margin'>{user.userName}</span>
-              )}
+              {!collapsed && <span className='user-name with-margin'>{userName}</span>}
               <Avatar
-                src={user.avatar || ''}
+                src={avatar || ''}
                 className='avatar'
                 size={50}
                 onClick={() => navigate('/profile')}
               >
-                {!user.avatar && avatarText}
+                {!avatar && avatarText}
               </Avatar>
             </div>
           </div>
