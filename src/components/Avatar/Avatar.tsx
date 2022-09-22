@@ -17,7 +17,7 @@ export const Avatar: FC<AvatarProps> = observer(
 
     return (
       <AntdAvatar src={src} className='avatar' size={size} onClick={onClick}>
-        {avatarText}
+        <span className='avatar-text'>{avatarText}</span>
       </AntdAvatar>
     );
   }

@@ -1,3 +1,7 @@
 .avatar {
   cursor: pointer;
 }
+
+.avatar-text {
+  font-size: 20px;
+}

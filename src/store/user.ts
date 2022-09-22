@@ -1,9 +1,9 @@
 import { makeAutoObservable } from 'mobx';
-import { logIn, getUser } from 'api';
+import { logIn, getUser, updateProfileData } from 'api';
 import { initApi } from 'config/axios';
-import { LoginResponse } from 'api/types';
+import { LoginResponse, UpdateUserData } from 'api/types';
 
-class User {
+export class User {
   constructor() {
     makeAutoObservable(this);
   }
@@ -15,6 +15,9 @@ class User {
   name: string | null = null;
   userName: string | null = null;
   birthDate: string | null = null;
+  city: string | null = null;
+  country: string | null = null;
+  gender: string | null = null;
 
   private setUser(data: LoginResponse) {
     this.isAuth = true;
@@ -23,6 +26,10 @@ class User {
     this.name = data!.name;
     this.userName = data!.userName;
     this.birthDate = data!.birthDate;
+    this.gender = data!.gender;
+    this.country = data!.country;
+    this.city = data!.city;
+
     initApi(data!.token);
   }
 
@@ -55,6 +62,17 @@ class User {
         this.logout();
       }
     }
+  }
+
+  updateUserData(data: UpdateUserData, id: string) {
+    return updateProfileData(data, id)
+      .then(() => {
+        Object.entries(data).forEach(([key, value]) => {
+          (this[key as keyof User] as unknown) = value;
+        });
+        return { type: 'success', message: 'Данные успешно обновлены' };
+      })
+      .catch(() => ({ type: 'error', message: 'Неверный пароль' }));
   }
 }
 

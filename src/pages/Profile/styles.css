@@ -1,4 +1,31 @@
 .profile-container {
   height: 100%;
   padding: 30px 40px;
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  align-items: center;
+  margin: 0 auto;
 }
+
+.input-title {
+  margin-bottom: 0;
+}
+
+.form-item {
+  margin-bottom: 10px !important;
+  flex: 50%;
+  height: 100px;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.controls {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  gap: 20px;
+}
+
