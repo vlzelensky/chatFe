@@ -6,7 +6,7 @@ import { user } from 'store';
 import { LayoutProps } from './types';
 import logo from 'public/images/logo.png';
 
-import './styles.css';
+import './styles.scss';
 
 const { Header, Sider, Content } = AntdLayout;
 
@@ -14,7 +14,9 @@ export const Layout: FC<LayoutProps> = observer(({ children }) => {
   const [collapsed, setCollapsed] = useState<boolean>(true);
   const navigate = useNavigate();
 
-  const { name, userName, avatar } = user;
+  const {
+    info: { name, userName, avatar },
+  } = user;
 
   const avatarText = name
     ?.split(' ')

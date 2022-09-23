@@ -6,13 +6,17 @@ import { protectedRoutes, openRoutes } from './routes';
 import { Layout } from 'components';
 
 export const Router = observer(() => {
+  const {
+    info: { isAuth },
+  } = user;
+
   return (
     <Routes>
       {openRoutes.map(({ path, Element }) => (
         <Route
           key={path}
           path={path}
-          element={user.isAuth ? <Navigate to='/' /> : <Element />}
+          element={isAuth ? <Navigate to='/' /> : <Element />}
         />
       ))}
       {protectedRoutes.map(({ path, Element }) => (
@@ -20,7 +24,7 @@ export const Router = observer(() => {
           key={path}
           path={path}
           element={
-            user.isAuth ? (
+            isAuth ? (
               <Layout>
                 <Element />
               </Layout>

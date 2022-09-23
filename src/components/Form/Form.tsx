@@ -6,7 +6,7 @@ import { user } from 'store/user';
 import { FormProps } from './types';
 import { validatePassword, validateRepeatPassword, validateUserName } from './validators';
 
-import './styles.css';
+import './styles.scss';
 
 export const Form: FC<FormProps> = ({ title, mode }) => {
   const navigate = useNavigate();

@@ -1,28 +1,33 @@
 import { makeAutoObservable } from 'mobx';
-import { logIn, getUser, findUser } from 'api';
+import { logIn, getUser } from 'api';
 import { initApi } from 'config/axios';
 import { LoginResponse } from 'api/types';
+import { Info } from './types';
 
 class User {
+  id: null | string;
+
   constructor() {
     makeAutoObservable(this);
+    this.id = null;
   }
 
-  id: string | null = null;
-  isAuth: boolean = false;
-  email: string | null = null;
-  avatar: string | null = null;
-  name: string | null = null;
-  userName: string | null = null;
-  birthDate: string | null = null;
+  info: Info = {
+    isAuth: false,
+    email: null,
+    avatar: null,
+    name: null,
+    userName: null,
+    birthDate: null,
+  };
 
   private setUser(data: LoginResponse) {
-    this.isAuth = true;
     this.id = data!.id;
-    this.email = data!.email;
-    this.name = data!.name;
-    this.userName = data!.userName;
-    this.birthDate = data!.birthDate;
+    this.info.isAuth = true;
+    this.info.email = data!.email;
+    this.info.name = data!.name;
+    this.info.userName = data!.userName;
+    this.info.birthDate = data!.birthDate;
     initApi(data!.token);
   }
 
@@ -38,11 +43,11 @@ class User {
 
   logout() {
     localStorage.removeItem('token');
-    this.isAuth = false;
-    this.email = null;
-    this.name = null;
-    this.userName = null;
-    this.birthDate = null;
+    this.info.isAuth = false;
+    this.info.email = null;
+    this.info.name = null;
+    this.info.userName = null;
+    this.info.birthDate = null;
   }
 
   async getUser() {

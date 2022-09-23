@@ -4,13 +4,14 @@ import { AutoComplete, Spin } from 'antd';
 import { useDebounce } from 'hooks';
 import { findUser } from 'api';
 import { user } from 'store';
+import { User } from './types';
 
-import './styles.css';
+import './styles.scss';
 
 export const Search: FC = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [users, setUsers] = useState<null | { id: string; userName: string }[]>(null);
+  const [users, setUsers] = useState<null | User[]>(null);
   const debouncedSearch = useDebounce(inputValue, 1000);
   const navigate = useNavigate();
 
@@ -38,7 +39,7 @@ export const Search: FC = () => {
     <div className='search-wrapper'>
       <AutoComplete
         className='search'
-        options={users?.map((user: { id: string; userName: string }) => ({
+        options={users?.map((user: User) => ({
           value: user.userName,
           ...user,
         }))}
