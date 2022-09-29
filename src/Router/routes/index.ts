@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Main, SignUp, SignIn, Profile } from 'pages';
+import { Main, SignUp, SignIn, Profile, Conversation } from 'pages';
 
 export const protectedRoutes = [
   {
@@ -9,6 +9,10 @@ export const protectedRoutes = [
   {
     path: '/profile',
     Element: Profile,
+  },
+  {
+    path: '/conversation/:userId',
+    Element: Conversation,
   },
 ];
 
