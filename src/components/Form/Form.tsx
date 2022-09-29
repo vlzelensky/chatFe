@@ -11,7 +11,7 @@ import {
   validateUserName,
 } from './validators';
 
-import './styles.css';
+import './styles.scss';
 
 export const Form: FC<FormProps> = ({ title, mode }) => {
   const navigate = useNavigate();

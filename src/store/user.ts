@@ -1,31 +1,53 @@
 import { makeAutoObservable } from 'mobx';
 import { logIn, getUser } from 'api';
 import { initApi } from 'config/axios';
+import { LoginResponse } from 'api/types';
+import { Info } from './types';
 
 class User {
+  id: null | string;
+
   constructor() {
     makeAutoObservable(this);
+    this.id = null;
   }
 
-  isAuth: boolean = false;
-  email: string | null = null;
-  name: string | null = null;
-  userName: string | null = null;
-  birthDate: string | null = null;
+  info: Info = {
+    isAuth: false,
+    email: null,
+    avatar: null,
+    name: null,
+    userName: null,
+    birthDate: null,
+  };
+
+  private setUser(data: LoginResponse) {
+    this.id = data!.id;
+    this.info.isAuth = true;
+    this.info.email = data!.email;
+    this.info.name = data!.name;
+    this.info.userName = data!.userName;
+    this.info.birthDate = data!.birthDate;
+    initApi(data!.token);
+  }
 
   async signIn(userData: { password: string; email: string }) {
     try {
       const data = await logIn(userData);
-      this.isAuth = true;
-      this.email = data!.email;
-      this.name = data!.name;
-      this.userName = data!.userName;
-      this.birthDate = data!.birthDate;
+      this.setUser(data);
       localStorage.setItem('token', data!.token);
-      initApi(data!.token);
     } catch {
       return 'Неправильный логин или пароль';
     }
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.info.isAuth = false;
+    this.info.email = null;
+    this.info.name = null;
+    this.info.userName = null;
+    this.info.birthDate = null;
   }
 
   async getUser() {
@@ -33,19 +55,9 @@ class User {
     if (token) {
       try {
         const data = await getUser(token);
-        this.isAuth = true;
-        this.email = data!.email;
-        this.name = data!.name;
-        this.userName = data!.userName;
-        this.birthDate = data!.birthDate;
-        initApi(data!.token);
+        this.setUser(data);
       } catch (e) {
-        localStorage.removeItem('token');
-        this.isAuth = false;
-        this.email = null;
-        this.name = null;
-        this.userName = null;
-        this.birthDate = null;
+        this.logout();
       }
     }
   }
