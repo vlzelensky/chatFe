@@ -1,10 +1,15 @@
 import { FC } from 'react';
 import { Form as AntdForm, Input, Button, DatePicker, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import { logIn, registerUser } from 'api';
+import { registerUser } from 'api';
+import { RegisterUserDataI } from 'api/types';
 import { user } from 'store/user';
 import { FormProps } from './types';
-import { validatePassword, validateRepeatPassword, validateUserName } from './validators';
+import {
+  validatePassword,
+  validateRepeatPassword,
+  validateUserName,
+} from './validators';
 
 import './styles.scss';
 
@@ -13,16 +18,21 @@ export const Form: FC<FormProps> = ({ title, mode }) => {
 
   const isSignUp = mode === 'signup';
 
-  const onFinish = async (values: {
-    name: string;
-    userName: string;
-    password: string;
-    repeatPassword: string;
-    birthDate: string;
-    email: string;
-  }) => {
+  const onFinish = async ({
+    email,
+    password,
+    name,
+    userName,
+    birthDate,
+  }: RegisterUserDataI) => {
     if (isSignUp) {
-      const errorMessage = await registerUser(values);
+      const errorMessage = await registerUser({
+        email,
+        userName,
+        name,
+        password,
+        birthDate,
+      });
       if (errorMessage && typeof errorMessage === 'string') {
         message.error(errorMessage);
         return;
@@ -32,8 +42,8 @@ export const Form: FC<FormProps> = ({ title, mode }) => {
       return;
     }
     const errorMessage = await user.signIn({
-      email: values.email,
-      password: values.password,
+      email,
+      password,
     });
     if (!errorMessage) {
       navigate('/');
