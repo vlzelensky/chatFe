@@ -1,0 +1,40 @@
+.conversation-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat {
+  flex: 1
+}
+
+.chat-message {
+  width: 100%;
+  display: flex;
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.send-message {
+  justify-content: end;
+}
+
+.receive-message {
+  justify-content: start;
+}
+
+.send {
+  background-color: lightgrey;
+}
+
+.receive {
+  background-color: #001628;
+  color: white;
+}

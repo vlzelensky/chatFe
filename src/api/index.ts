@@ -1,5 +1,11 @@
 import api from 'config/axios';
-import { LoginResponse, RegisterUserDataI, LoginUserDataI } from 'api/types';
+import {
+  LoginResponse,
+  RegisterUserDataI,
+  LoginUserDataI,
+  UpdateUserData,
+  UpdateDataResponse,
+} from 'api/types';
 
 export const registerUser = (userData: RegisterUserDataI) => {
   return api()
@@ -16,5 +22,24 @@ export const logIn = (userData: LoginUserDataI) => {
 export const getUser = (token: string) => {
   return api()
     .get<LoginResponse>('user/me', { headers: { Authorization: token } })
+    .then((res) => res.data);
+};
+
+export const findUser = (value: string, userId: string) => {
+  return api().get('user/', {
+    params: {
+      searchUser: value,
+      userId,
+    },
+  });
+};
+
+export const updateProfileData = (data: UpdateUserData, userId: string) => {
+  return api()
+    .put<UpdateDataResponse>('user/update', data, {
+      params: {
+        userId,
+      },
+    })
     .then((res) => res.data);
 };

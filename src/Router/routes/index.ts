@@ -1,10 +1,18 @@
 //@ts-nocheck
-import { Main, SignUp, SignIn } from 'pages';
+import { Main, SignUp, SignIn, Profile, Conversation } from 'pages';
 
 export const protectedRoutes = [
   {
     path: '/',
     Element: Main,
+  },
+  {
+    path: '/profile',
+    Element: Profile,
+  },
+  {
+    path: '/conversation/:userId',
+    Element: Conversation,
   },
 ];
 
